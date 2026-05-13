@@ -181,6 +181,11 @@ window.PROMPT_CONFIG = {
       "prompt": "1. 오늘의 한 줄 결론\n2. 맞춤 해석\n3. 추천 행동\n4. 주의할 점\n5. 재미 요소\n6. 다음 질문 또는 추가 팁"
     },
     {
+      "value": "learningPartner",
+      "label": "학습/코치·작업 파트너형",
+      "prompt": "1. 현재 수준 진단\n2. 목표와 필요한 역량 정의\n3. 단계별 학습/작업 계획\n4. 오늘 바로 할 과제\n5. 피드백 기준과 체크리스트\n6. 예시/연습 문제 또는 공동 작업안\n7. 막히는 지점별 해결법\n8. 다음 질문 또는 다음 세션 과제"
+    },
+    {
       "value": "travel",
       "label": "여행 일정형",
       "prompt": "1. 한 줄 추천 결론\n2. 여행 전제와 확인 필요 정보\n3. 날짜별/시간대별 타임라인\n4. 이동 동선과 예상 소요 시간\n5. 식비/교통비/입장료 등 예산표\n6. 준비물 체크리스트\n7. 현지 팁/예약 팁/주의사항\n8. 비 오는 날 또는 체력 저하 대안\n9. 최종 추천 코스와 바로 할 일"
@@ -358,7 +363,7 @@ window.PROMPT_CONFIG = {
         "personaMode": "auto",
         "toneMode": "action",
         "outputFormatMode": "troubleshoot"
-      },      
+      },
       "role": "너는 10년 이상의 경력을 가진 시니어 프론트엔드 엔지니어이자 백엔드·네이티브·배포·품질 검증과 테스트까지 책임지는 테크 리드다. 기존 기능을 깨지 않는 안정적인 수정, 실제로 붙여 넣어 적용 가능한 코드, 원인 분석 → 수정 코드 → 테스트 방법 → 배포 전 체크리스트를 최우선으로 한다.",
       "requiredFields": [
         {
@@ -1547,6 +1552,241 @@ window.PROMPT_CONFIG = {
         "constraints": "무료 모델 우선, 기존 기능을 깨지 않는 보수적 변경 우선"
       },
       "tip": "리서치/분석형 프롬프트는 “자료 조사”보다 “어떤 결정을 하려는가?”가 명확해야 좋은 결론이 나옵니다."
+    },
+    {
+      "key": "learningPartner",
+      "label": "학습/코치·작업 파트너",
+      "badge": "Coach",
+      "description": "영어·타로·자격증·학습 코칭과 업무 협업용 프롬프트",
+      "commonDefaults": {
+        "clarityLevel": "auto",
+        "responseDepth": "actionable",
+        "promptStrength": "enhanced",
+        "personaMode": "auto",
+        "toneMode": "action",
+        "outputFormatMode": "learningPartner"
+      },
+      "role": "너는 사용자의 현재 수준을 진단하고 목표 달성까지 함께 가는 맞춤형 학습 코치이자 실무 작업 파트너다. 영어, 타로카드, 자격증, 일반 학습, 업무 문서, 기획, 코드/아이디어 협업처럼 반복 피드백이 필요한 작업에서 사용자가 혼자 막히지 않도록 진단 → 설명 → 예시 → 연습 → 피드백 → 다음 과제 순서로 돕는다.",
+      "requiredFields": [
+        {
+          "id": "learningMode",
+          "label": "도움받을 방식",
+          "type": "select",
+          "required": true,
+          "options": [
+            {
+              "value": "learningCoach",
+              "label": "학습 코치/교사 - 권장",
+              "prompt": "사용자의 현재 수준을 먼저 진단하고, 쉬운 설명과 연습 문제, 피드백 루프로 가르쳐줘.",
+              "recommended": true
+            },
+            {
+              "value": "languageCoach",
+              "label": "영어/외국어 코치",
+              "prompt": "언어 학습 코치처럼 발음, 표현, 문법, 회화 상황, 반복 연습, 교정 피드백을 포함해줘."
+            },
+            {
+              "value": "certStudy",
+              "label": "자격증/시험 공부",
+              "prompt": "시험 범위, 남은 기간, 현재 수준, 기출/빈출 개념을 기준으로 학습 계획과 문제 풀이 전략을 설계해줘."
+            },
+            {
+              "value": "tarotStudy",
+              "label": "타로카드/상징 학습",
+              "prompt": "타로를 미래 단정이 아니라 상징 해석과 자기성찰 도구로 설명하고, 카드 의미·질문법·해석 연습을 단계별로 도와줘."
+            },
+            {
+              "value": "workPartner",
+              "label": "작업 동료/협업 파트너",
+              "prompt": "상대가 함께 일하는 동료처럼 초안 검토, 아이디어 보강, 문제점 지적, 다음 작업 분담, 결과물 개선을 도와줘."
+            },
+            {
+              "value": "reviewPartner",
+              "label": "피드백/검토 파트너",
+              "prompt": "결과물을 냉정하게 검토하고 장점, 문제점, 개선 우선순위, 수정 예시를 제공해줘."
+            }
+          ],
+          "recommendedValue": "learningCoach"
+        },
+        {
+          "id": "learningGoal",
+          "label": "배우거나 함께 해결할 목표",
+          "type": "textarea",
+          "rows": 3,
+          "required": true,
+          "placeholder": "예: 영어 회화를 매일 20분씩 연습하고 싶다 / 타로 메이저 아르카나를 이해하고 싶다 / 제안서 초안을 같이 다듬고 싶다"
+        },
+        {
+          "id": "currentLevel",
+          "label": "현재 수준/상황",
+          "type": "textarea",
+          "rows": 3,
+          "required": true,
+          "placeholder": "예: 영어는 문법은 조금 알지만 말하기가 약함 / 타로는 카드 이름만 아는 입문자 / 초안은 있는데 구조가 약함"
+        }
+      ],
+      "optionalFields": [
+        {
+          "id": "workMaterial",
+          "label": "함께 작업할 자료/초안/문제",
+          "type": "textarea",
+          "rows": 5,
+          "requiredWhen": {
+            "fieldId": "learningMode",
+            "value": "workPartner"
+          },
+          "placeholder": "예: 같이 다듬을 글, 기획안, 코드, 아이디어, 회의 메모, 문제 상황을 붙여넣어주세요."
+        },
+        {
+          "id": "reviewMaterial",
+          "label": "검토받을 결과물",
+          "type": "textarea",
+          "rows": 5,
+          "requiredWhen": {
+            "fieldId": "learningMode",
+            "value": "reviewPartner"
+          },
+          "placeholder": "예: 피드백받고 싶은 글, 코드, 발표 자료, 공부 계획, 결과물을 붙여넣어주세요."
+        },
+        {
+          "id": "examInfo",
+          "label": "시험/자격증 정보",
+          "type": "textarea",
+          "rows": 3,
+          "requiredWhen": {
+            "fieldId": "learningMode",
+            "value": "certStudy"
+          },
+          "placeholder": "예: 전기기사 필기, 시험까지 8주 남음, 평일 1시간/주말 3시간 가능, 과년도 문제 중심"
+        },
+        {
+          "id": "languageInfo",
+          "label": "언어 학습 정보",
+          "type": "textarea",
+          "rows": 3,
+          "requiredWhen": {
+            "fieldId": "learningMode",
+            "value": "languageCoach"
+          },
+          "placeholder": "예: 영어 회화, 여행 상황 표현, 발음 교정, 하루 20분, 한국어 설명 선호"
+        },
+        {
+          "id": "tarotScope",
+          "label": "타로 학습 범위",
+          "type": "textarea",
+          "rows": 3,
+          "requiredWhen": {
+            "fieldId": "learningMode",
+            "value": "tarotStudy"
+          },
+          "placeholder": "예: 메이저 아르카나 22장 의미, 카드별 키워드, 질문법, 3카드 배열 연습"
+        },
+        {
+          "id": "availableTime",
+          "label": "사용 가능한 시간/기간",
+          "type": "input",
+          "placeholder": "예: 하루 20분, 주 3회, 시험까지 2개월, 오늘 1시간 안에 초안 완성"
+        },
+        {
+          "id": "preferredTeachingStyle",
+          "label": "선호하는 설명/협업 방식",
+          "type": "select",
+          "options": [
+            {
+              "value": "진단 질문 1~3개를 먼저 한 뒤, 수준에 맞춰 설명과 과제를 제시해줘.",
+              "label": "진단 후 맞춤 진행 - 권장",
+              "recommended": true
+            },
+            {
+              "value": "설명은 짧게 하고 예시와 연습 문제를 많이 제공해줘.",
+              "label": "예시/연습 중심"
+            },
+            {
+              "value": "개념을 먼저 깊이 설명한 뒤 적용 예시로 연결해줘.",
+              "label": "개념 설명 중심"
+            },
+            {
+              "value": "작업 동료처럼 초안을 함께 고치고, 더 나은 대안을 바로 제시해줘.",
+              "label": "협업/수정 중심"
+            },
+            {
+              "value": "냉정하게 피드백하되, 개선 순서를 명확히 알려줘.",
+              "label": "냉정한 피드백 중심"
+            }
+          ],
+          "recommendedValue": "진단 질문 1~3개를 먼저 한 뒤, 수준에 맞춰 설명과 과제를 제시해줘."
+        },
+        {
+          "id": "feedbackLevel",
+          "label": "피드백 강도",
+          "type": "select",
+          "options": [
+            {
+              "value": "부담 없는 친절한 피드백으로 진행해줘.",
+              "label": "친절하게"
+            },
+            {
+              "value": "틀린 부분은 명확히 짚고, 왜 틀렸는지와 고치는 방법을 알려줘.",
+              "label": "정확하게 - 권장",
+              "recommended": true
+            },
+            {
+              "value": "레드팀처럼 약점과 허점을 먼저 지적하고 개선안을 제시해줘.",
+              "label": "냉정한 레드팀"
+            }
+          ],
+          "recommendedValue": "틀린 부분은 명확히 짚고, 왜 틀렸는지와 고치는 방법을 알려줘."
+        },
+        {
+          "id": "learningConstraints",
+          "label": "제약조건/피하고 싶은 방식",
+          "type": "textarea",
+          "rows": 2,
+          "placeholder": "예: 너무 이론만 길게 설명하지 말 것, 한 번에 많은 숙제 금지, 영어 예문에는 한국어 해석 포함"
+        },
+        {
+          "id": "successCriteria",
+          "label": "성공 기준/완료 기준",
+          "type": "textarea",
+          "rows": 2,
+          "placeholder": "예: 4주 후 자기소개를 영어로 말하기 / 메이저 카드 22장 키워드 암기 / 오늘 안에 제안서 목차 확정"
+        }
+      ],
+      "personas": [
+        "A - 진단 교사: 사용자의 현재 수준, 오해, 부족한 정보를 먼저 파악한다.",
+        "B - 커리큘럼 설계자: 목표까지 필요한 단계를 작게 쪼개고 우선순위를 정한다.",
+        "C - 연습 코치: 예시, 연습 문제, 미션, 피드백 루프를 만든다.",
+        "D - 작업 동료/레드팀: 초안이나 아이디어의 약점, 누락, 더 나은 대안을 지적한다.",
+        "E - 최종 멘토: 사용자가 지금 바로 할 다음 행동과 다음 세션 과제를 정한다."
+      ],
+      "outputFormat": [
+        "1. 현재 수준/상황 진단",
+        "2. 목표를 이루기 위한 핵심 단계",
+        "3. 오늘 바로 할 학습/작업 과제",
+        "4. 쉬운 설명 또는 예시",
+        "5. 연습 문제/체크리스트/공동 작업안",
+        "6. 피드백 기준과 자주 틀리는 지점",
+        "7. 다음 질문 또는 다음 세션 과제",
+        "8. 마지막 팁"
+      ],
+      "standards": [
+        "학습 요청은 사용자의 현재 수준을 먼저 반영하고, 너무 어려운 설명으로 시작하지 마.",
+        "한 번에 너무 많은 내용을 주입하지 말고, 작은 단계와 반복 가능한 과제로 나눠줘.",
+        "교사 역할일 때는 설명 → 예시 → 연습 → 피드백 → 다음 과제 흐름을 유지해줘.",
+        "작업 동료 역할일 때는 무조건 칭찬하지 말고, 개선 우선순위와 구체적인 수정안을 제시해줘.",
+        "영어, 자격증, 학습 계획처럼 지속형 작업은 다음 세션에서 이어갈 수 있는 기록/과제를 남겨줘.",
+        "타로 학습은 미래 단정이 아니라 카드 상징, 질문법, 자기성찰 도구로 다뤄줘."
+      ],
+      "sampleValues": {
+        "learningMode": "learningCoach",
+        "learningGoal": "영어 회화를 매일 20분씩 연습해서 여행 상황에서 기본 대화를 할 수 있게 되고 싶다.",
+        "currentLevel": "문법은 조금 알지만 말하기가 막히고, 단어를 알아도 문장으로 바로 나오지 않는다.",
+        "availableTime": "평일 하루 20분, 주말 40분 정도 가능",
+        "preferredTeachingStyle": "진단 질문 1~3개를 먼저 한 뒤, 수준에 맞춰 설명과 과제를 제시해줘.",
+        "feedbackLevel": "틀린 부분은 명확히 짚고, 왜 틀렸는지와 고치는 방법을 알려줘.",
+        "successCriteria": "4주 뒤 공항, 호텔, 식당에서 필요한 기본 표현을 말할 수 있으면 성공"
+      },
+      "tip": "학습/작업 파트너형 프롬프트는 ‘현재 수준’과 ‘성공 기준’을 넣어야 AI가 교재처럼 설명하지 않고 실제 코치처럼 도와줍니다."
     },
     {
       "key": "travel",

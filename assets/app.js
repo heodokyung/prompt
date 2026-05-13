@@ -585,6 +585,7 @@
       values.financeGoal?.value ||
       values.marketingGoal?.value ||
       values.researchGoal?.value ||
+      values.learningGoal?.value ||
       values.lifeFunTopic?.value;
 
     return [
@@ -1005,6 +1006,7 @@
       finance: ['투자', '재테크', '고위험'],
       marketing: ['마케팅', '전환', '브랜딩'],
       research: ['분석', '리서치', '전략'],
+      learningPartner: ['학습', '교사', '코치', '멘토', '작업', '협업'],
       travel: ['여행', '코스'],
       lifeFun: ['재미', '생활', '운세', '타로', '사주'],
       image: ['이미지', '시각']
