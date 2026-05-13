@@ -204,7 +204,7 @@
       ? `data-show-when-field="${escapeHtml(field.showWhen.fieldId)}" data-show-when-value="${escapeHtml(field.showWhen.value)}" hidden`
       : '';
     const requiredWhenAttr = field.requiredWhen
-      ? `data-required-when-field="${escapeHtml(field.requiredWhen.fieldId)}" data-required-when-value="${escapeHtml(field.requiredWhen.value)}"`
+      ? `data-required-when-field="${escapeHtml(field.requiredWhen.fieldId)}" data-required-when-value="${escapeHtml(field.requiredWhen.value)}" hidden`
       : '';
 
     let control = '';
@@ -392,6 +392,15 @@
       const [sourceId, expectedValue] = wrapper.getAttribute('data-common-dependent').split(':');
       const source = document.getElementById(sourceId);
       const isVisible = source && source.value === expectedValue;
+      wrapper.hidden = !isVisible;
+      if (!isVisible) clearFieldValue(wrapper);
+    });
+
+    document.querySelectorAll('[data-required-when-field]').forEach((wrapper) => {
+      const sourceId = wrapper.getAttribute('data-required-when-field');
+      const expectedValue = wrapper.getAttribute('data-required-when-value');
+      const source = document.getElementById(sourceId);
+      const isVisible = Boolean(source && source.value === expectedValue);
       wrapper.hidden = !isVisible;
       if (!isVisible) clearFieldValue(wrapper);
     });
