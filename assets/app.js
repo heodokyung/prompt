@@ -15,7 +15,6 @@
 
   const els = {
     typeGroup: document.getElementById('promptTypeGroup'),
-    typeCountBadge: document.getElementById('typeCountBadge'),
     promptForm: document.getElementById('promptForm'),
     requiredFields: document.getElementById('requiredFields'),
     conditionalRequiredSection: document.getElementById('conditionalRequiredSection'),
@@ -55,11 +54,12 @@
     resetButton: document.getElementById('resetButton'),
     sampleButton: document.getElementById('sampleButton'),
     promptMeta: document.getElementById('promptMeta'),
-    toast: document.getElementById('toast')
+    toast: document.getElementById('toast'),
+    controlPanel: document.querySelector('.control-panel'),
+    formActionRow: document.querySelector('.prompt-form > .button-row')
   };
 
   function init() {
-    if (els.typeCountBadge) els.typeCountBadge.textContent = String(config.types.length);
     renderTypeOptions();
     renderCommonSelects();
     applyTypeDefaults(getCurrentType());
@@ -67,6 +67,7 @@
     enhanceClearButtons(els.promptForm);
     enhanceCustomSelects(els.promptForm);
     bindEvents();
+    setupFloatingActionBar();
     syncConditionalFields();
     updateSampleButtonState();
   }
@@ -265,6 +266,35 @@
       field.options.find((option) => option.value === field.recommendedValue) ||
       field.options.find((option) => option.recommended);
     return recommended ? recommended.label : '';
+  }
+
+
+  function setupFloatingActionBar() {
+    if (!els.controlPanel || !els.formActionRow) return;
+
+    const update = () => {
+      if (window.innerWidth <= 760) {
+        document.documentElement.style.removeProperty('--floating-actions-left');
+        document.documentElement.style.removeProperty('--floating-actions-width');
+        return;
+      }
+
+      const panelRect = els.controlPanel.getBoundingClientRect();
+      const computed = window.getComputedStyle(els.controlPanel);
+      const paddingLeft = parseFloat(computed.paddingLeft) || 0;
+      const paddingRight = parseFloat(computed.paddingRight) || 0;
+      const innerLeft = Math.max(16, panelRect.left + paddingLeft);
+      const innerWidth = Math.max(320, panelRect.width - paddingLeft - paddingRight);
+
+      document.documentElement.style.setProperty('--floating-actions-left', `${innerLeft}px`);
+      document.documentElement.style.setProperty('--floating-actions-width', `${innerWidth}px`);
+    };
+
+    update();
+    window.addEventListener('resize', update, { passive: true });
+    window.addEventListener('orientationchange', update, { passive: true });
+    window.addEventListener('load', update, { once: true });
+    requestAnimationFrame(update);
   }
 
   function bindEvents() {
@@ -869,7 +899,7 @@
     button.disabled = select.disabled;
     const selectedBadgeHtml = selectedRecommend.recommended
       ? `<span class="custom-select__meta">${
-          selectedRecommend.reason ? `<small class="custom-select__reason">${escapeHtml(selectedRecommend.reason)}</small>-<em class="select-recommend-badge">권장</em>` : ''
+          selectedRecommend.reason ? `<small class="custom-select__reason">${escapeHtml(selectedRecommend.reason)}</small><em class="select-recommend-badge">권장</em>` : ''
         }</span>`
       : '';
 
