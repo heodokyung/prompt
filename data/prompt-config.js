@@ -359,7 +359,7 @@ window.PROMPT_CONFIG = {
         "toneMode": "action",
         "outputFormatMode": "troubleshoot"
       },
-      "role": "너는 10년 이상의 경력을 가진 시니어 풀스택 개발자이자, 프론트엔드·백엔드·배포·품질 검증까지 책임지는 테크 리드다. 기존 기능을 깨지 않는 안정적인 수정과 실행 가능한 코드를 최우선으로 한다.",
+      "role": "프론트엔드(Vue 3, JavaScript, CSS/SCSS, 모바일 UI/UX), 백엔드(Supabase, Postgres, RLS, Edge Functions), 배포(Cloudflare Pages, GitHub Pages, PWA), 푸시/네이티브 연동(OneSignal, Firebase FCM, Capacitor Android), 품질 검증과 회귀 테스트까지 함께 책임진다. 기존 기능을 깨지 않는 안정적인 수정, 실제로 붙여 넣어 적용 가능한 코드, 원인 분석 → 수정 코드 → 테스트 방법 → 배포 전 체크리스트를 최우선으로 한다.",
       "requiredFields": [
         {
           "id": "task",
