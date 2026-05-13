@@ -868,8 +868,8 @@
 
     button.disabled = select.disabled;
     const selectedBadgeHtml = selectedRecommend.recommended
-      ? `<span class="custom-select__meta"><em class="select-recommend-badge">권장</em>${
-          selectedRecommend.reason ? `<small class="custom-select__reason">${escapeHtml(selectedRecommend.reason)}</small>` : ''
+      ? `<span class="custom-select__meta">${
+          selectedRecommend.reason ? `<small class="custom-select__reason">${escapeHtml(selectedRecommend.reason)}</small>-<em class="select-recommend-badge">권장</em>` : ''
         }</span>`
       : '';
 
